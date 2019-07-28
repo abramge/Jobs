@@ -1,6 +1,11 @@
+
+#### IMPORTAR PACOTES ####
+
 library(data.table)
 library(tidyverse)
 library(readODS)
+
+#### IMPORTAR BASES DE DADOS ####
 
 url <- "http://ftp.dadosabertos.ans.gov.br/FTP/PDA/RPC/"
 
@@ -21,18 +26,11 @@ rpc_2018_02 <- fread(paste(url,"RPC_2018_2trim.csv",sep=""),header=TRUE)
 rpc_2018_03 <- fread(paste(url,"RPC_2018_3trim.csv",sep=""),header=TRUE)
 rpc_2018_04 <- fread(paste(url,"RPC_2018_4trim.csv",sep=""),header=TRUE)
 
-official_metadata <- read_ods("C:/Users/Gustavo Bruschi/Downloads/dicionario_de_dados_rpc.ods")
+official_metadata <- read_ods("dicionario_de_dados_rpc.ods")
 official_metadata <- official_metadata[8:29,]
 colnames(official_metadata) <- as.character(unlist(official_metadata[1,]))
 official_metadata <- official_metadata[-1,]
 
-
-
-tabela_1 <-
-  ## separar dados necessários ------------------------------------------------
-  rpc_2018_04 %>%
-  group_by(TP_VIGENCIA_PLANO,CD_OPERADORA) %>%
-  summarise(percentual_mean=mean(PERCENTUAL))
 
 
 
